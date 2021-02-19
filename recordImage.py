@@ -17,6 +17,7 @@ time.sleep(0.1)
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=False):
     # grab the current frame
     image = frame.array
+    image = cv2.rotate(image, cv2.ROTATE_180)
     # show the frame to our screen
     cv2.imshow("Frame", image)
     
@@ -27,4 +28,4 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     if key == ord("q"):
         break
 
-cv2.imwrite("trafficSign.jpg", image)
+cv2.imwrite("trafficSign01.jpg", image)

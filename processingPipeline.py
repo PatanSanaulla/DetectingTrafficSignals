@@ -3,7 +3,7 @@ import numpy as np
 import imutils
 
 
-image = cv2.imread('trafficSign.jpg')
+image = cv2.imread('trafficSign01.jpg')
 
 height = (image.shape[0])
 width = (image.shape[1])
@@ -20,7 +20,7 @@ cv2.imshow('HSV', hsvImage)
 #for x in range(0, height-1):
  #   for y in range(0, width-1):
 
-threshold = cv2.inRange(hsvImage, (75, 145, 120), (85, 170, 140))
+threshold = cv2.inRange(hsvImage, (75, 130, 130), (85, 160, 150))
 cv2.imshow('Threshold', threshold)
 
 contours, hierarchy = cv2.findContours(threshold, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
