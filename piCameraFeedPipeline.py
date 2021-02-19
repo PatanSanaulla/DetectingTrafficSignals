@@ -4,6 +4,7 @@ import imutils
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
+import datetime
 
 def findGreenLight(image):
     height = (image.shape[0])
@@ -43,16 +44,28 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter('trafficLights01.avi', fourcc, 10, (640, 480))
 # write frame to video file
 
+#to write time delta in a file
+file = open('hw3data.txt','a')
+
 # keep looping
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=False):
     # grab the current frame
+    start = datetime.datetime.now()
+    
     image = frame.array
     image = cv2.rotate(image, cv2.ROTATE_180)
-    # show the frame to our screen
-    cv2.imshow("Frame", image)
     
     processedImage = findGreenLight(image)
     out.write(processedImage)
+    
+    # show the frame to our screen
+    cv2.imshow("Frame", image)
+    
+    end = datetime.datetime.now()
+    delta = end - start
+    #print(str(delta))
+    
+    file.write(str(delta.total_seconds())+'\n')
     
     key = cv2.waitKey(1) & 0xFF
     # clear the stream in preparation for the next frame
